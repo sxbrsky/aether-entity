@@ -1,0 +1,8 @@
+{
+  "name": "nulldark/entity-manager",
+  "autoload": {
+    "psr-4": {
+      "NullDark\\": "src/"
+    }
+  }
+}
