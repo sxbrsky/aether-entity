@@ -1,5 +1,6 @@
 {
   "name": "nulldark/entity-manager",
+  "license": "LGPL-2.1-only",
   "autoload": {
     "psr-4": {
       "NullDark\\": "src/"
