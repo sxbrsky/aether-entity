@@ -34,6 +34,8 @@ use ReflectionClass;
 final class ClassMetadata
 {
     public array $table;
+    public array $identifier = [];
+    public array $fieldsMapping;
     public string $entityName;
     public string $rootEntityName;
     public string $reflNamespace;
@@ -85,5 +87,24 @@ final class ClassMetadata
         if (isset($table['schema'])) {
             $this->table['schema'] = $table['schema'];
         }
+    }
+
+    /**
+     * @param array $mapping
+     * @return void
+     */
+    public function fieldMapping(array $mapping): void
+    {
+        if (!isset($mapping['type'])) {
+            $mapping['type'] = 'string';
+        }
+
+        if (isset($mapping['id']) && $mapping['id'] === true) {
+            if (!in_array($mapping['fieldName'], $this->identifier, true)) {
+                $this->identifier[] = $mapping['fieldName'];
+            }
+        }
+
+        $this->fieldsMapping[$mapping['fieldName']] = $mapping;
     }
 }

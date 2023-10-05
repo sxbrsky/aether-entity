@@ -120,5 +120,38 @@ final class ClassMetadataFactory
         }
 
         $class->setPrimaryTable($primaryTable);
+
+        foreach ($reflectionClass->getProperties() as $property) {
+            $columnAttribute = $this->reader->getPropertyAttribute($property, Mapping\Column::class);
+
+            if ($columnAttribute !== null) {
+                $mapping = $this->columnToArray($property->name, $columnAttribute);
+
+                if ($this->reader->getPropertyAttribute($property, Mapping\Column::class)) {
+                    $mapping['id'] = true;
+                }
+
+                $class->fieldMapping($mapping);
+            }
+        }
     }
+
+    /**
+     * @param string $fieldName
+     * @param Mapping\Column $column
+     * @return array
+     */
+    private function columnToArray(string $fieldName, Mapping\Column $column): array
+    {
+        $mapping = [
+            'fieldName' => $fieldName,
+            'type' => $column->type,
+            'length' => $column->length,
+            'unique' => $column->unique,
+            'nullable' => $column->nullable
+        ];
+
+        return $mapping;
+    }
+
 }
