@@ -20,10 +20,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Metadata;
+namespace NullDark;
 
 
-use NullDark\Mapping;
+use NullDark\Metadata\AttributeReader;
 use NullDark\Metadata\Reflection\RuntimeReflection;
 
 /**
@@ -32,9 +32,9 @@ use NullDark\Metadata\Reflection\RuntimeReflection;
  * @license MIT
  * @version 0.1.0
  */
-final class ClassMetadataFactory
+final class EntityMetadataFactory
 {
-    /** @var array<string, ClassMetadata> $loadedMetadata */
+    /** @var array<string, EntityMetadata> $loadedMetadata */
     private array $loadedMetadata;
 
     /** @var AttributeReader $reader */
@@ -47,9 +47,9 @@ final class ClassMetadataFactory
 
     /**
      * @param string $className
-     * @return ClassMetadata
+     * @return EntityMetadata
      */
-    public function loadClassMetadataFor(string $className): ClassMetadata
+    public function loadClassMetadataFor(string $className): EntityMetadata
     {
         $className = $this->normalizeClassname($className);
 
@@ -73,11 +73,11 @@ final class ClassMetadataFactory
 
     /**
      * @param string $class
-     * @return ClassMetadata
+     * @return EntityMetadata
      */
-    private function newClassMetadataInstance(string $class): ClassMetadata
+    private function newClassMetadataInstance(string $class): EntityMetadata
     {
-        return new ClassMetadata(
+        return new EntityMetadata(
             $class
         );
     }
@@ -103,10 +103,10 @@ final class ClassMetadataFactory
     }
 
     /**
-     * @param ClassMetadata $class
+     * @param EntityMetadata $class
      * @return void
      */
-    private function doLoadMetadata(ClassMetadata $class): void
+    private function doLoadMetadata(EntityMetadata $class): void
     {
         $reflectionClass = $class->getReflectionClass();
         $classAttributes = $this->reader->getClassAttributes($reflectionClass);
