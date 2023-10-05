@@ -25,6 +25,7 @@ namespace NullDark\Metadata;
 use NullDark\Mapping\Attribute;
 use ReflectionAttribute;
 use ReflectionClass;
+use ReflectionProperty;
 
 /**
  * @author Dominik Szamburski
@@ -43,6 +44,27 @@ final class AttributeReader
         return $this->convertAttributesToInstances(
             $reflectionClass->getAttributes()
         );
+    }
+
+    /**
+     * @param ReflectionProperty $property
+     * @return Attribute[]
+     */
+    public function getPropertyAttributes(ReflectionProperty $property): array
+    {
+        return $this->convertAttributesToInstances(
+            $property->getAttributes()
+        );
+    }
+
+    /**
+     * @param ReflectionProperty $property
+     * @param string $attributeName
+     * @return null|Attribute
+     */
+    public function getPropertyAttribute(ReflectionProperty $property, string $attributeName): ?Attribute
+    {
+        return $this->getPropertyAttributes($property)[$attributeName];
     }
 
     /**
