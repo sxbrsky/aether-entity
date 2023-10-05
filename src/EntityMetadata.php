@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Metadata;
+namespace NullDark;
 
 use NullDark\Metadata\Reflection\ReflectionInterface;
 use ReflectionClass;
@@ -31,7 +31,7 @@ use ReflectionClass;
  * @license MIT
  * @version 0.1.0
  */
-final class ClassMetadata
+final class EntityMetadata
 {
     public array $table;
     public array $identifier = [];
