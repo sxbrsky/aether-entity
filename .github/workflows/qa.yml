@@ -35,3 +35,9 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php-versions }}
       - name: Install dependencies
         run: composer install --prefer-source --no-interaction --dev
+      - name: Coding Standard
+        run: composer run lint:check
+      - name: Static Code Analysis
+        run: composer run static-analyze:phpstan
+      - name: Run test suite
+        run: composer run tests:units
