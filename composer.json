@@ -20,5 +20,14 @@
       "bin-links": false,
       "target-directory": "tools"
     }
+  },
+  "scripts": {
+    "tools:clean": "rm -rf tools/*/vendor && rm -rf vendor/",
+    "post-install-cmd": [
+      "@composer bin all install --ansi"
+    ],
+    "post-update-cmd": [
+      "@composer bin all update --ansi"
+    ]
   }
 }
