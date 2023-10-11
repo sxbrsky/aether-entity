@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: php
+          package-name: release-please-action
+          pull-request-title-pattern: "chore(release): ${version}"
+          pull-request-header: ":robot: Merge this PR to release a new version"
+
+  publish-package:
+    needs: release-please
+    if: contains(github.event.head_commit.message, 'chore(release)')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hotaruma/packagist-sync@v1.0.1
+        with:
+          packagist-username: ${{ secrets.PACKAGIST_USERNAME }}
+          api-token: ${{ secrets.PACKAGIST_TOKEN }}
