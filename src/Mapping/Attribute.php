@@ -30,5 +30,4 @@ namespace NullDark\Mapping;
  */
 interface Attribute
 {
-
 }

@@ -33,7 +33,6 @@ use ReflectionClass;
  */
 interface ReflectionInterface
 {
-
     /**
      * @param string $class
      * @return ReflectionClass

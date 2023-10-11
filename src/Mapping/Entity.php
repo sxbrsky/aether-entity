@@ -31,5 +31,4 @@ namespace NullDark\Mapping;
 #[\Attribute(\Attribute::TARGET_CLASS)]
 final class Entity implements Attribute
 {
-
 }

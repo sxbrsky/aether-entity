@@ -31,5 +31,4 @@ namespace NullDark\Mapping;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class Id implements Attribute
 {
-
 }

@@ -34,7 +34,6 @@ final class Table implements Attribute
     public function __construct(
         public ?string $name,
         public ?string $schema
-    )
-    {
+    ) {
     }
 }

@@ -86,5 +86,4 @@ final class AttributeReader
 
         return $instances;
     }
-
 }
