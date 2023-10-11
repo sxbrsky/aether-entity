@@ -34,10 +34,9 @@ final class Column implements Attribute
     public function __construct(
         public ?string $name = null,
         public ?string $type = null,
-        public ?int    $length = null,
-        public ?bool   $unique = false,
-        public ?bool   $nullable = false
-    )
-    {
+        public ?int $length = null,
+        public ?bool $unique = false,
+        public ?bool $nullable = false
+    ) {
     }
 }

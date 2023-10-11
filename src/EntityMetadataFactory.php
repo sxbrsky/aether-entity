@@ -22,7 +22,6 @@
 
 namespace NullDark;
 
-
 use NullDark\Metadata\AttributeReader;
 use NullDark\Metadata\Reflection\RuntimeReflection;
 
@@ -153,5 +152,4 @@ final class EntityMetadataFactory
 
         return $mapping;
     }
-
 }
