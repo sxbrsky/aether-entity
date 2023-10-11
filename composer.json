@@ -18,15 +18,15 @@
   "require-dev": {
     "bamarni/composer-bin-plugin": "^1.8"
   },
-  "platform": {
-    "php": "8.2"
-  },
   "config": {
-    "bin-dir": "bin",
-    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    },
     "allow-plugins": {
       "bamarni/composer-bin-plugin": true
-    }
+    },
+    "bin-dir": "bin",
+    "sort-packages": true,
   },
   "extra": {
     "bamarni-bin": {
