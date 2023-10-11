@@ -5,5 +5,20 @@
     "psr-4": {
       "NullDark\\": "src/"
     }
+  },
+  "require-dev": {
+    "bamarni/composer-bin-plugin": "^1.8"
+  },
+  "config": {
+    "bin-dir": "bin",
+    "allow-plugins": {
+      "bamarni/composer-bin-plugin": true
+    }
+  },
+  "extra": {
+    "bamarni-bin": {
+      "bin-links": false,
+      "target-directory": "tools"
+    }
   }
 }
