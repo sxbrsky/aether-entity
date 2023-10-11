@@ -20,9 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Metadata;
+namespace NullDark\EntityManager\Metadata;
 
-use NullDark\Mapping\Attribute;
+use NullDark\EntityManager\Mapping\Attribute;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionProperty;

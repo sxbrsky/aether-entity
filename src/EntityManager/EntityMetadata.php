@@ -20,9 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark;
+namespace NullDark\EntityManager;
 
-use NullDark\Metadata\Reflection\ReflectionInterface;
+use NullDark\EntityManager\Metadata\Reflection\ReflectionInterface;
 use ReflectionClass;
 
 /**

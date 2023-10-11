@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Mapping;
+namespace NullDark\EntityManager\Mapping;
 
 /**
  * @author Dominik Szamburski
@@ -28,6 +28,7 @@ namespace NullDark\Mapping;
  * @license MIT
  * @version 0.1.0
  */
-interface Attribute
+#[\Attribute(\Attribute::TARGET_CLASS)]
+final class Entity implements Attribute
 {
 }

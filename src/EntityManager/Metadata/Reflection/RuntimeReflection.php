@@ -20,9 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Metadata\Reflection;
+namespace NullDark\EntityManager\Metadata\Reflection;
 
 use ReflectionClass;
+use ReflectionException;
+use RuntimeException;
 
 /**
  * @author Dominik Szamburski
@@ -31,23 +33,27 @@ use ReflectionClass;
  * @license MIT
  * @version 0.1.0
  */
-interface ReflectionInterface
+final class RuntimeReflection implements ReflectionInterface
 {
-    /**
-     * @param string $class
-     * @return ReflectionClass
-     */
-    public function getClass(string $class): ReflectionClass;
+    public function getParentClasses(string $class): array
+    {
+        if (!class_exists($class)) {
+            throw new RuntimeException("class $class not exists.");
+        }
+
+        return class_parents($class);
+    }
+
+    public function getClassNamespace(string $class): string
+    {
+        return $this->getClass($class)->getNamespaceName();
+    }
 
     /**
-     * @param string $class
-     * @return string
+     * @throws ReflectionException
      */
-    public function getClassNamespace(string $class): string;
-
-    /**
-     * @param string $class
-     * @return string[]
-     */
-    public function getParentClasses(string $class): array;
+    public function getClass(string $class): ReflectionClass
+    {
+        return new ReflectionClass($class);
+    }
 }

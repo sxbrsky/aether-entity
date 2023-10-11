@@ -20,20 +20,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Mapping;
+namespace NullDark\EntityManager\Metadata\Reflection;
+
+use ReflectionClass;
 
 /**
  * @author Dominik Szamburski
- * @package Mapping
+ * @package Metadata
+ * @subpackage Reflection
  * @license MIT
  * @version 0.1.0
  */
-#[\Attribute(\Attribute::TARGET_CLASS)]
-final class Table implements Attribute
+interface ReflectionInterface
 {
-    public function __construct(
-        public ?string $name,
-        public ?string $schema
-    ) {
-    }
+    /**
+     * @param string $class
+     * @return ReflectionClass
+     */
+    public function getClass(string $class): ReflectionClass;
+
+    /**
+     * @param string $class
+     * @return string
+     */
+    public function getClassNamespace(string $class): string;
+
+    /**
+     * @param string $class
+     * @return string[]
+     */
+    public function getParentClasses(string $class): array;
 }
