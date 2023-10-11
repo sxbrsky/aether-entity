@@ -6,6 +6,11 @@
       "NullDark\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Nulldark\\Tests\\": "tests/"
+    }
+  },
   "require-dev": {
     "bamarni/composer-bin-plugin": "^1.8"
   },
