@@ -27,6 +27,7 @@
     }
   },
   "scripts": {
+    "lint:fix": "bin/php-cs-fixer fix --rules=@PSR12 src/",
     "tools:clean": "rm -rf tools/*/vendor && rm -rf vendor/",
     "post-install-cmd": [
       "@composer bin all install --ansi"
