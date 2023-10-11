@@ -27,3 +27,5 @@ phpcs.xml
 phpunit.xml
 .build/
 vendor/
+
+composer.lock

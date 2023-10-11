@@ -1,5 +1,6 @@
 {
   "name": "nulldark/entity-manager",
+  "description": "entity-manager",
   "license": "LGPL-2.1-only",
   "autoload": {
     "psr-4": {
@@ -11,11 +12,18 @@
       "Nulldark\\Tests\\": "tests/"
     }
   },
+  "require": {
+    "php": "8.2.* || 8.3.*"
+  },
   "require-dev": {
     "bamarni/composer-bin-plugin": "^1.8"
   },
+  "platform": {
+    "php": "8.2"
+  },
   "config": {
     "bin-dir": "bin",
+    "sort-packages": true,
     "allow-plugins": {
       "bamarni/composer-bin-plugin": true
     }
@@ -23,7 +31,8 @@
   "extra": {
     "bamarni-bin": {
       "bin-links": false,
-      "target-directory": "tools"
+      "target-directory": "tools",
+      "forward-command": true
     }
   },
   "scripts": {
