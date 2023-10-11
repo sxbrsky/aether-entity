@@ -4,7 +4,7 @@
   "license": "LGPL-2.1-only",
   "autoload": {
     "psr-4": {
-      "NullDark\\": "src/"
+      "Nulldark\\": "src/EntityManager/"
     }
   },
   "autoload-dev": {
@@ -26,7 +26,7 @@
       "bamarni/composer-bin-plugin": true
     },
     "bin-dir": "bin",
-    "sort-packages": true,
+    "sort-packages": true
   },
   "extra": {
     "bamarni-bin": {

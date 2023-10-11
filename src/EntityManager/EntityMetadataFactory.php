@@ -20,10 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark;
+namespace Nulldark\EntityManager;
 
-use NullDark\Metadata\AttributeReader;
-use NullDark\Metadata\Reflection\RuntimeReflection;
+use Nulldark\EntityManager;
+use Nulldark\EntityManager\Metadata\AttributeReader;
+use Nulldark\EntityManager\Metadata\Reflection\RuntimeReflection;
 
 /**
  * @author Dominik Szamburski
@@ -111,8 +112,8 @@ final class EntityMetadataFactory
         $classAttributes = $this->reader->getClassAttributes($reflectionClass);
 
         $primaryTable = [];
-        if (isset($classAttributes[Mapping\Table::class])) {
-            $table = $classAttributes[Mapping\Table::class];
+        if (isset($classAttributes[EntityManager\Mapping\Table::class])) {
+            $table = $classAttributes[EntityManager\Mapping\Table::class];
 
             $primaryTable['name'] = $table->name;
             $primaryTable['schema'] = $table->schema;
@@ -121,12 +122,12 @@ final class EntityMetadataFactory
         $class->setPrimaryTable($primaryTable);
 
         foreach ($reflectionClass->getProperties() as $property) {
-            $columnAttribute = $this->reader->getPropertyAttribute($property, Mapping\Column::class);
+            $columnAttribute = $this->reader->getPropertyAttribute($property, EntityManager\Mapping\Column::class);
 
             if ($columnAttribute !== null) {
                 $mapping = $this->columnToArray($property->name, $columnAttribute);
 
-                if ($this->reader->getPropertyAttribute($property, Mapping\Column::class)) {
+                if ($this->reader->getPropertyAttribute($property, EntityManager\Mapping\Column::class)) {
                     $mapping['id'] = true;
                 }
 
@@ -137,10 +138,10 @@ final class EntityMetadataFactory
 
     /**
      * @param string $fieldName
-     * @param Mapping\Column $column
+     * @param \Nulldark\EntityManager\Mapping\Column $column
      * @return array
      */
-    private function columnToArray(string $fieldName, Mapping\Column $column): array
+    private function columnToArray(string $fieldName, EntityManager\Mapping\Column $column): array
     {
         $mapping = [
             'fieldName' => $fieldName,

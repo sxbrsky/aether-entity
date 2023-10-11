@@ -20,34 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Metadata\Reflection;
-
-use ReflectionClass;
+namespace Nulldark\EntityManager\Mapping;
 
 /**
  * @author Dominik Szamburski
- * @package Metadata
- * @subpackage Reflection
+ * @package Mapping
  * @license MIT
  * @version 0.1.0
  */
-interface ReflectionInterface
+interface Attribute
 {
-    /**
-     * @param string $class
-     * @return ReflectionClass
-     */
-    public function getClass(string $class): ReflectionClass;
-
-    /**
-     * @param string $class
-     * @return string
-     */
-    public function getClassNamespace(string $class): string;
-
-    /**
-     * @param string $class
-     * @return string[]
-     */
-    public function getParentClasses(string $class): array;
 }

@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\Mapping;
+namespace Nulldark\EntityManager\Mapping;
 
 /**
  * @author Dominik Szamburski
@@ -29,14 +29,6 @@ namespace NullDark\Mapping;
  * @version 0.1.0
  */
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
-final class Column implements Attribute
+final class Id implements Attribute
 {
-    public function __construct(
-        public ?string $name = null,
-        public ?string $type = null,
-        public ?int $length = null,
-        public ?bool $unique = false,
-        public ?bool $nullable = false
-    ) {
-    }
 }
