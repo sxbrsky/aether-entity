@@ -20,7 +20,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\EntityManager\Mapping;
+namespace Nulldark\EntityManager\Mapping;
 
 /**
  * @author Dominik Szamburski

@@ -20,11 +20,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-namespace NullDark\EntityManager;
+namespace Nulldark\EntityManager;
 
-use NullDark\EntityManager;
-use NullDark\EntityManager\Metadata\AttributeReader;
-use NullDark\EntityManager\Metadata\Reflection\RuntimeReflection;
+use Nulldark\EntityManager;
+use Nulldark\EntityManager\Metadata\AttributeReader;
+use Nulldark\EntityManager\Metadata\Reflection\RuntimeReflection;
 
 /**
  * @author Dominik Szamburski
@@ -138,7 +138,7 @@ final class EntityMetadataFactory
 
     /**
      * @param string $fieldName
-     * @param \NullDark\EntityManager\Mapping\Column $column
+     * @param \Nulldark\EntityManager\Mapping\Column $column
      * @return array
      */
     private function columnToArray(string $fieldName, EntityManager\Mapping\Column $column): array
