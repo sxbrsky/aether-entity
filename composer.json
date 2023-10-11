@@ -27,7 +27,10 @@
     }
   },
   "scripts": {
-    "analyze:metrics": "bin/phpmetrics --report-html=metrics src/",
+    "static-analyze:phpstan": "bin/phpstan --memory-limit=-1",
+    "static-analyze:phpmetrics": "bin/phpmetrics --report-html=.build/metrics src/",
+    "tests:units": "bin/phpunit",
+    "lint:check": "bin/phpcs",
     "lint:fix": "bin/php-cs-fixer fix --rules=@PSR12 src/",
     "tools:clean": "rm -rf tools/*/vendor && rm -rf vendor/",
     "post-install-cmd": [
