@@ -29,6 +29,7 @@
         "phpstan/phpstan-phpunit": "1.4.x-dev",
         "phpstan/phpstan-strict-rules": "1.5.x-dev",
         "phpunit/phpunit": "^11.0@dev",
-        "squizlabs/php_codesniffer": "4.0.x-dev"
+        "squizlabs/php_codesniffer": "4.0.x-dev",
+        "vimeo/psalm": "5.x-dev"
     }
 }
