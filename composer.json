@@ -13,6 +13,7 @@
         "php": "~8.2.0 || ~8.3.0"
     },
     "require-dev": {
+        "captainhook/captainhook": "^6.0@dev",
         "jetbrains/phpstorm-stubs": "dev-master",
         "madewithlove/license-checker": "dev-main",
         "mockery/mockery": "2.0.x-dev",
@@ -42,6 +43,11 @@
             "php": "8.2"
         },
         "sort-packages": true
+    },
+    "extra": {
+        "captainhook": {
+            "force-install": true
+        }
     },
     "scripts": {
         "dev:analyze": [
