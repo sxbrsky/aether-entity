@@ -1,0 +1,113 @@
+name: "Continuous Integration"
+
+on:
+  push:
+    branches:
+      - develop
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+    paths:
+      - composer.*
+      - phpunit.xml.dist
+      - lib/**
+      - tests/**
+
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - composer.*
+      - phpunit.xml.dist
+      - lib/**
+      - tests/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coding-standards:
+    name: "Coding Standards"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          php-version: '8.2'
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: "Check coding standards"
+        run: "vendor/bin/phpcs -q --no-colors --report=checkstyle"
+
+  static-analysis:
+    name: Static Analysis
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+          ini-values: "memory_limit=-1"
+          php-version: '8.2'
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Static Analysis (PHPStan)
+        run: "vendor/bin/phpstan analyse --error-format=checkstyle"
+
+      - name: Static Analysis (Psalm)
+        run: "vendor/bin/psalm --shepherd"
+
+  unit-tests:
+    name: "Unit tests"
+    needs: ["coding-standards", "static-analysis"]
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.2"
+          - "8.3"
+        operating-system:
+          - "ubuntu-latest"
+          - "windows-latest"
+        dependencies:
+          - "lowest"
+          - "highest"
+
+    steps:
+      - name: "Configure Git (for Windows)"
+        if: ${{ matrix.operating-system == 'windows-latest' }}
+        shell: "bash"
+        run: |
+          git config --system core.autocrlf false
+          git config --system core.eol lf
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: "none"
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+
+      - name: "Run unit tests (PHPUnit)"
+        run: "vendor/bin/phpunit"
