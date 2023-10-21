@@ -1,0 +1,36 @@
+name: "Coding Standards"
+
+on:
+  pull_request:
+    paths:
+      - composer.*
+      - phpcs.xml.dist
+      - lib/**
+      - tests/**
+  push:
+    paths:
+      - composer.*
+      - phpcs.xml.dist
+      - lib/**
+      - tests/**
+
+jobs:
+  coding-standards:
+    name: Coding Standards
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          php-version: '8.2'
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: "Check coding standards"
+        run: "vendor/bin/phpcs -q --no-colors --report=checkstyle"
