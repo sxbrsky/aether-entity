@@ -21,6 +21,7 @@
         "phpstan/phpstan-strict-rules": "1.5.x-dev",
         "phpunit/phpunit": "^11.0@dev",
         "psalm/plugin-phpunit": "dev-master",
+        "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "4.0.x-dev",
         "vimeo/psalm": "5.x-dev"
     },
