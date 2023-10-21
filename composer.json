@@ -1,0 +1,22 @@
+{
+    "name": "nulldark/orm",
+    "description": "Object Relational Mapper",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dominik Szamburski",
+            "email": "dominikszamburski99@gmail.com"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Nulldark\\Orm\\": "lib/ORM/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
