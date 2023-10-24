@@ -14,7 +14,6 @@
         "nulldark/dbal": "dev-master"
     },
     "require-dev": {
-        "captainhook/captainhook": "^6.0@dev",
         "jetbrains/phpstorm-stubs": "dev-master",
         "madewithlove/license-checker": "dev-main",
         "mockery/mockery": "2.0.x-dev",
@@ -24,7 +23,6 @@
         "phpstan/phpstan-strict-rules": "1.5.x-dev",
         "phpunit/phpunit": "^11.0@dev",
         "psalm/plugin-phpunit": "dev-master",
-        "ramsey/conventional-commits": "^1.0@dev",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "4.0.x-dev",
         "vimeo/psalm": "5.x-dev"
@@ -72,7 +70,7 @@
             "@dev:lint:style"
         ],
         "dev:lint:fix": "vendor/bin/phpcbf",
-        "dev:lint:style": "vendor/bin/phpcs -q --no-colors --report=checkstyle",
+        "dev:lint:style": "vendor/bin/phpcs -p --colors",
         "dev:test": [
             "@dev:test:unit"
         ],
