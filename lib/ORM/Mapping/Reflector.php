@@ -25,6 +25,7 @@
 namespace Nulldark\ORM\Mapping;
 
 use Nulldark\ORM\Mapping\Annotations\Annotation;
+use Nulldark\Tests\Stubs\AnnotationDummyClass;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionMethod;
@@ -55,51 +56,53 @@ final class Reflector
     }
 
     /**
-     * Gets a class attributes instance.
+     * Gets a class annotations.
      *
      * @param ReflectionClass $class
      *
      * @return array
      * @psalm-return array<string, object>
      */
-    public function getClassAttributes(ReflectionClass $class): array
+    public function getClassAnnotations(ReflectionClass $class): array
     {
-        return $this->convertAttributesToInstance(
+        return $this->convertAnnotationsToInstance(
             $class->getAttributes()
         );
     }
 
     /**
-     * Gets a method attributes instance.
+     * Gets a method annotations.
      *
      * @param ReflectionMethod $method
      *
      * @return array
      * @psalm-return array<string, object>
      */
-    public function getMethodAttributes(ReflectionMethod $method): array
+    public function getMethodAnnotations(ReflectionMethod $method): array
     {
-        return $this->convertAttributesToInstance(
+        return $this->convertAnnotationsToInstance(
             $method->getAttributes()
         );
     }
 
     /**
-     * Gets a property attributes instance.
+     * Gets a property annotations.
      *
      * @param ReflectionProperty $property
      *
      * @return array
      * @psalm-return array<string, object>
      */
-    public function getPropertyAttributes(ReflectionProperty $property): array
+    public function getPropertyAnnotations(ReflectionProperty $property): array
     {
-        return $this->convertAttributesToInstance(
+        return $this->convertAnnotationsToInstance(
             $property->getAttributes()
         );
     }
 
     /**
+     * Gets single property annotation.
+     *
      * @param ReflectionProperty $property
      * @param string $annotation
      * @psalm-param class-string<Annotation> $annotation
@@ -107,20 +110,20 @@ final class Reflector
      * @return Annotation|null
      * @psalm-return object|null
      */
-    public function getPropertyAttribute(ReflectionProperty $property, string $annotation): ?object
+    public function getPropertyAnnotation(ReflectionProperty $property, string $annotation): ?object
     {
-        return $this->getPropertyAttributes($property)[$annotation] ?? null;
+        return $this->getPropertyAnnotations($property)[$annotation] ?? null;
     }
 
     /**
-     * Convert given attributes to new instance.
+     * Convert given annotations to new instance.
      *
      * @param array<array-key, ReflectionAttribute> $attributes
      *
      * @return array
      * @psalm-return array<string, object>
      */
-    private function convertAttributesToInstance(array $attributes): array
+    private function convertAnnotationsToInstance(array $attributes): array
     {
         $instances = [];
 

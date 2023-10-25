@@ -22,20 +22,14 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping;
+namespace Nulldark\ORM\Mapping\Annotations;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping
+ * @package Nulldark\ORM\Mapping\Annotations
  * @since 0.1.0
  */
-#[\Attribute(\Attribute::TARGET_CLASS)]
-final class Table implements Attribute
+interface Annotation
 {
-    public function __construct(
-        public readonly ?string $name,
-        public readonly ?string $schema = null
-    ) {
-    }
 }

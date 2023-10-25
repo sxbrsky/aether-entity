@@ -22,15 +22,17 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping;
+namespace Nulldark\ORM\Mapping\Annotations;
+
+use Attribute;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping
+ * @package Nulldark\ORM\Mapping\Annotations
  * @since 0.1.0
  */
-#[\Attribute(\Attribute::TARGET_CLASS)]
-final class Entity implements Attribute
+#[Attribute(Attribute::TARGET_PROPERTY)]
+final class Id implements Annotation
 {
 }

@@ -22,14 +22,25 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping;
+namespace Nulldark\ORM\Mapping\Annotations;
+
+use Attribute;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping
+ * @package Nulldark\ORM\Mapping\Annotations
  * @since 0.1.0
  */
-interface Attribute
+#[Attribute(Attribute::TARGET_PROPERTY)]
+final class Column implements Annotation
 {
+    public function __construct(
+        public readonly ?string $name = null,
+        public readonly ?string $type = null,
+        public readonly ?int $length = null,
+        public readonly ?bool $unique = false,
+        public readonly ?bool $nullable = false
+    ) {
+    }
 }
