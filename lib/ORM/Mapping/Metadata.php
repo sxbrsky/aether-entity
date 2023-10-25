@@ -31,8 +31,8 @@ use ReflectionProperty;
 
 /**
  * @psalm-type FieldMapping = array{
- *       type?: string|null,
- *       fieldName?: string|null,
+ *       type: string|null,
+ *       fieldName: string|null,
  *       length?: int|null,
  *       id?: bool|null,
  *       unique?: bool|null,
@@ -93,10 +93,10 @@ class Metadata
     /**
      * Sets primary table definition based on given $table Annotation.
      *
-     * @param Annotations\Table|null $table
+     * @param ?ORM\Table $table
      * @return void
      */
-    public function setPrimaryTable(ORM\Table $table = null): void
+    public function setPrimaryTable(?ORM\Table $table = null): void
     {
         if ($table === null) {
             return;

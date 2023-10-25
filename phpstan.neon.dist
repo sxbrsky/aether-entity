@@ -10,3 +10,5 @@ parameters:
     paths:
         - lib
         - tests
+    excludePaths:
+        - lib/ORM/Mapping/Reflector.php

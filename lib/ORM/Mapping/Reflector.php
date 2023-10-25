@@ -60,8 +60,10 @@ final class Reflector
      *
      * @param ReflectionClass $class
      *
-     * @return array
-     * @psalm-return array<string, object>
+     * @return array<string, T>
+     * @psalm-return array<class-string<T>, T>
+     *
+     * @template T of Annotation
      */
     public function getClassAnnotations(ReflectionClass $class): array
     {
@@ -75,8 +77,8 @@ final class Reflector
      *
      * @param ReflectionMethod $method
      *
-     * @return array
-     * @psalm-return array<string, object>
+     * @return array<string, Annotation>
+     * @psalm-return array<class-string, Annotation>
      */
     public function getMethodAnnotations(ReflectionMethod $method): array
     {
@@ -90,8 +92,8 @@ final class Reflector
      *
      * @param ReflectionProperty $property
      *
-     * @return array
-     * @psalm-return array<string, object>
+     * @return array<string, Annotation>
+     * @psalm-return array<class-string, Annotation>
      */
     public function getPropertyAnnotations(ReflectionProperty $property): array
     {
@@ -103,25 +105,29 @@ final class Reflector
     /**
      * Gets single property annotation.
      *
-     * @param ReflectionProperty $property
-     * @param string $annotation
-     * @psalm-param class-string<Annotation> $annotation
+     * @param ReflectionProperty    $property
+     * @param string                $annotation
+     * @psalm-param class-string<T> $annotation
      *
-     * @return Annotation|null
-     * @psalm-return object|null
+     * @return T|null
+     * @psalm-return T|null
+     *
+     * @template T of Annotation
      */
-    public function getPropertyAnnotation(ReflectionProperty $property, string $annotation): ?object
+    public function getPropertyAnnotation(ReflectionProperty $property, string $annotation)
     {
         return $this->getPropertyAnnotations($property)[$annotation] ?? null;
     }
 
     /**
      * Convert given annotations to new instance.
+     **
+     * @param array<ReflectionAttribute> $attributes
      *
-     * @param array<array-key, ReflectionAttribute> $attributes
+     * @return array<class-string<T>, T>
+     * @psalm-return array<class-string<T>, T>
      *
-     * @return array
-     * @psalm-return array<string, object>
+     * @template T of Annotation
      */
     private function convertAnnotationsToInstance(array $attributes): array
     {
@@ -132,7 +138,10 @@ final class Reflector
                 continue;
             }
 
-            $instances[$attribute->getName()] = $attribute->newInstance();
+            $instance = $attribute->newInstance();
+            assert($instance instanceof Annotation);
+
+            $instances[$attribute->getName()] = $instance;
         }
 
         return $instances;
