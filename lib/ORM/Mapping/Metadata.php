@@ -25,6 +25,7 @@
 namespace Nulldark\ORM\Mapping;
 
 use Nulldark\ORM\Mapping\Annotations as ORM;
+use Nulldark\ORM\Repository\EntityRepository;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionProperty;
@@ -57,6 +58,11 @@ class Metadata
      * @psalm-var class-string
      */
     public string $name;
+
+    /**
+     * @psalm-var ?class-string<EntityRepository>
+     */
+    public string|null $customRepositoryClassname = null;
 
     /**
      * The primary table definition.
@@ -144,6 +150,18 @@ class Metadata
                 $this->identifier[] = $mapping['fieldName'];
             }
         }
+    }
+
+    /**
+     * Registers custom repository class for entity.
+     *
+     * @param string|null $classname
+     * @psalm-param class-string<EntityRepository>|null $classname
+     * @return void
+     */
+    public function setCustomRepository(?string $classname): void
+    {
+        $this->customRepositoryClassname = $classname;
     }
 
     /**

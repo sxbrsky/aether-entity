@@ -22,24 +22,51 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Nulldark\ORM\UnitOfWork;
 
-use Attribute;
-use Nulldark\ORM\Repository\EntityRepository;
+use BackedEnum;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Nulldark\ORM\UnitOfWork
  * @since 0.1.0
- *
- * @template T of object
  */
-#[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+interface IdentityMapInterface
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
-    public function __construct(
-       public readonly string|null $repositoryClass = null
-    ) {}
+    /**
+     * Puts a entity into identity map.
+     *
+     * @param mixed   $identifier
+     * @param object  $entity
+     * @psalm-param T $entity
+     *
+     * @return bool
+     *
+     * @template T of object
+     */
+    public function put(mixed $identifier, object $entity): bool;
+
+    /**
+     * Gets entity from identity map.
+     *
+     * @param mixed                 $identifier
+     * @param string                $classname
+     * @psalm-param class-string<T> $classname
+     *
+     * @return T|false
+     * @psalm-return T|false
+     *
+     * @template T
+     */
+    public function get(mixed $identifier, string $classname): mixed;
+
+    /**
+     * Compute id hash for given identifiers.
+     *
+     * @param mixed[] $identifier
+     *
+     * @return string
+     */
+    public function computeIdHash(array $identifier): string;
 }

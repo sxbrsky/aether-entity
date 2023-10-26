@@ -22,24 +22,37 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Nulldark\ORM\Persister;
 
-use Attribute;
-use Nulldark\ORM\Repository\EntityRepository;
+use Nulldark\ORM\EntityManagerInterface;
+use Nulldark\ORM\Hydrator\HydratorInterface;
+use Nulldark\ORM\Hydrator\ObjectHydrator;
+use Nulldark\ORM\Mapping\Metadata;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Nulldark\ORM\Persister
  * @since 0.1.0
- *
- * @template T of object
  */
-#[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+abstract class AbstractPersister implements PersisterInterface
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
+    protected HydratorInterface|null $entityHydrator = null;
+
     public function __construct(
-       public readonly string|null $repositoryClass = null
-    ) {}
+        protected readonly EntityManagerInterface $em,
+        protected readonly Metadata $class
+    ) {
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getEntityHydrator(): HydratorInterface
+    {
+        if ($this->entityHydrator === null) {
+            $this->entityHydrator = new ObjectHydrator($this->class);
+        }
+
+        return $this->entityHydrator;
+    }
 }

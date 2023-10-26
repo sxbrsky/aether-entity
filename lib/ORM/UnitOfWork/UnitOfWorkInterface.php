@@ -22,24 +22,54 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Nulldark\ORM\UnitOfWork;
 
-use Attribute;
-use Nulldark\ORM\Repository\EntityRepository;
+use Nulldark\ORM\Persister\PersisterInterface;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Nulldark\ORM\UnitOfWork
  * @since 0.1.0
- *
- * @template T of object
  */
-#[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+interface UnitOfWorkInterface
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
-    public function __construct(
-       public readonly string|null $repositoryClass = null
-    ) {}
+    /**
+     * Tries get an entity from identity map.
+     *
+     * @param mixed                 $id
+     * @param string                $classname
+     * @psalm-param class-string<T> $classname
+     *
+     * @return object|false
+     * @psalm-return T|false
+     *
+     * @template T of object
+     */
+    public function tryGetById(mixed $id, string $classname): object|false;
+
+    /**
+     * Puts an object into identity map.
+     *
+     * @param mixed $id
+     * @param object $entity
+     * @psalm-param T $entity
+     *
+     * @return bool
+     *
+     * @template T of object
+     */
+    public function putToIdentityMap(mixed $id, object $entity): bool;
+
+    /**
+     * Gets a persister instance for given entity.
+     *
+     * @param string                $classname
+     * @psalm-param class-string<T> $classname
+     *
+     * @return PersisterInterface
+     *
+     * @template T of object
+     */
+    public function getEntityPersister(string $classname): PersisterInterface;
 }

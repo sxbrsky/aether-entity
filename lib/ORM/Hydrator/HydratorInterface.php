@@ -36,8 +36,13 @@ interface HydratorInterface
      * Hydrate $object with the provided $data.
      *
      * @param array<array-key, mixed> $data
-     * @param object|null $entity
+     * @param object                  $entity
+     * @psalm-param T                 $entity
+     *
      * @return object
+     * @psalm-return T
+     *
+     * @template T of object
      */
-    public function hydrate(array $data, object|null $entity = null): object;
+    public function hydrate(array $data, object $entity): object;
 }

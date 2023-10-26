@@ -22,24 +22,43 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Nulldark\ORM\Persister;
 
-use Attribute;
-use Nulldark\ORM\Repository\EntityRepository;
+use Nulldark\ORM\Hydrator\HydratorInterface;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Nulldark\ORM\Persister
  * @since 0.1.0
- *
- * @template T of object
  */
-#[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+interface PersisterInterface
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
-    public function __construct(
-       public readonly string|null $repositoryClass = null
-    ) {}
+    /**
+     * Gets an entity by a list of field criteria.
+     *
+     * @param array<string, mixed>  $criteria
+     * @param object|null           $entity
+     * @psalm-param object|null          $entity
+     *
+     * @return object|null
+     */
+    public function load(array $criteria, object $entity = null): ?object;
+
+    /**
+     * Gets a list of entities by a list of field criteria.
+     *
+     * @param array<string, mixed> $criteria
+     *
+     * @return object[]
+     * @psalm-return list<object>
+     */
+    public function loadAll(array $criteria): array;
+
+    /**
+     * Returns a hydrator instance.
+     *
+     * @return HydratorInterface
+     */
+    public function getEntityHydrator(): HydratorInterface;
 }

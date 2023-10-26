@@ -22,24 +22,64 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Nulldark\ORM\Repository;
 
-use Attribute;
-use Nulldark\ORM\Repository\EntityRepository;
+use Nulldark\ORM\EntityManagerInterface;
+use Nulldark\ORM\Mapping\Metadata;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Nulldark\ORM\Persister
  * @since 0.1.0
  *
  * @template T of object
  */
-#[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+class EntityRepository
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
+    protected string $entityName;
+
     public function __construct(
-       public readonly string|null $repositoryClass = null
-    ) {}
+        protected EntityManagerInterface $em,
+        protected Metadata $class
+    ) {
+        $this->entityName = $class->name;
+    }
+
+    /**
+     * Finds entity by its identifier.
+     *
+     * @param mixed $id
+     *
+     * @return object|null
+     * @psalm-return T|null
+     */
+    public function find(mixed $id) {
+        return $this->em->find($this->entityName, $id);
+    }
+
+    /**
+     * Finds all entities in the repository.
+     *
+     * @return object[]
+     * @psalm-return list<T>
+     */
+    public function findAll(): array
+    {
+        return $this->findBy([]);
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @psalm-param array<string, mixed> $criteria
+     *
+     * @return object[]
+     * @psalm-return list<T>
+     */
+    public function findBy(array $criteria): array
+    {
+        return $this->em->getUnitOfWork()
+            ->getEntityPersister($this->entityName)
+            ->loadAll($criteria);
+    }
 }

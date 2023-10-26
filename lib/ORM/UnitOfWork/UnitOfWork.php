@@ -22,38 +22,63 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Hydrator;
+namespace Nulldark\ORM\UnitOfWork;
 
-use Nulldark\ORM\Mapping\Metadata;
+use Nulldark\ORM\EntityManagerInterface;
+use Nulldark\ORM\Persister\EntityPersister;
 
 /**
+ * @internal
+ *
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Hydrator
+ * @package Nulldark\ORM\UnitOfWork
  * @since 0.1.0
  */
-class ObjectHydrator implements HydratorInterface
+final class UnitOfWork implements UnitOfWorkInterface
 {
+    private IdentityMapInterface $identityMap;
+
+    /** @var array<string, EntityPersister> $persisters */
+    private array $persisters = [];
     public function __construct(
-        private readonly Metadata $class
+        private readonly EntityManagerInterface $em
     ) {
+        $this->identityMap = new IdentityMap();
     }
 
     /**
      * @inheritDoc
      */
-    public function hydrate(array $data, object $entity): object
+    public function tryGetById(mixed $id, string $classname): object|false
     {
-        foreach ($data as $field => $value) {
-            if (isset($this->class->fieldMappings[$field])) {
-                if ($this->class->properties[$field] === null) {
-                    continue;
-                }
+        $entity = $this->identityMap->get($id, $classname);
 
-                $this->class->properties[$field]->setValue($entity, $value);
-            }
+        return $entity !== false
+            ? $entity
+            : false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function putToIdentityMap(mixed $id, object $entity): bool
+    {
+        return $this->identityMap->put($id, $entity);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEntityPersister(string $classname): EntityPersister
+    {
+        if (isset($this->persisters[$classname])) {
+            return $this->persisters[$classname];
         }
 
-        return $entity;
+        return $this->persisters[$classname] = new EntityPersister(
+            $this->em,
+            $this->em->getMedata($classname)
+        );
     }
 }

@@ -84,11 +84,22 @@ class MetadataFactory
     {
         $reflectionClass = new \ReflectionClass($class->name);
 
-        $classAnnotations = $this->reflector->getClassAnnotations($reflectionClass,);
+        $classAnnotations = $this->reflector->getClassAnnotations($reflectionClass);
 
-        /** @var Annotations\Table $tableAnnotation */
-        $tableAnnotation = $classAnnotations[Annotations\Table::class];
-        $class->setPrimaryTable($tableAnnotation);
+        if (isset($classAnnotations[Annotations\Entity::class])) {
+            /** @var Annotations\Entity $entityAnnotation */
+            $entityAnnotation = $classAnnotations[Annotations\Entity::class];
+
+            if ($entityAnnotation->repositoryClass !== null) {
+                $class->setCustomRepository($entityAnnotation->repositoryClass);
+            }
+        }
+
+        if (isset($classAnnotations[Annotations\Table::class])) {
+            /** @var Annotations\Table $tableAnnotation */
+            $tableAnnotation = $classAnnotations[Annotations\Table::class];
+            $class->setPrimaryTable($tableAnnotation);
+        }
 
         foreach ($reflectionClass->getProperties() as $property) {
             $class->setFieldMapping(
