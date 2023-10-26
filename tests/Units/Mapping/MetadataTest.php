@@ -8,6 +8,7 @@ use Nulldark\Tests\Stubs\AnnotationDummyClass;
 use Nulldark\Tests\Stubs\DummyClass;
 use Nulldark\Tests\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+
 use function PHPUnit\Framework\assertNotEmpty;
 
 #[CoversClass(Metadata::class)]
@@ -34,6 +35,5 @@ class MetadataTest extends TestCase
 
         self::assertNotEmpty($class->fieldMappings);
         self::assertEquals($property->name, $class->fieldMappings[$property->name]['fieldName']);
-
     }
 }

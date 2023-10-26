@@ -10,7 +10,7 @@ use Nulldark\Tests\Stubs\DummyClassExtended;
 use Nulldark\Tests\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass(Reflector::class )]
+#[CoversClass(Reflector::class)]
 class ReflectorTest extends TestCase
 {
     /**
@@ -73,7 +73,7 @@ class ReflectorTest extends TestCase
 
         self::assertInstanceOf(
             ORM\Column::class,
-                $reflector->getPropertyAnnotation($reflectionProperty, ORM\Column::class)
+            $reflector->getPropertyAnnotation($reflectionProperty, ORM\Column::class)
         );
     }
 }

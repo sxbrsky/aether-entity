@@ -7,5 +7,4 @@ use Nulldark\ORM\Mapping\Annotations;
 #[Annotations\Entity]
 class DummyClass
 {
-
 }

@@ -40,6 +40,7 @@ final class Entity implements Annotation
 {
     /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
     public function __construct(
-       public readonly string|null $repositoryClass = null
-    ) {}
+        public readonly string|null $repositoryClass = null
+    ) {
+    }
 }

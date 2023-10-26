@@ -54,7 +54,8 @@ class EntityRepository
      * @return object|null
      * @psalm-return T|null
      */
-    public function find(mixed $id) {
+    public function find(mixed $id)
+    {
         return $this->em->find($this->entityName, $id);
     }
 
