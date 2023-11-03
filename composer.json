@@ -28,7 +28,7 @@
         "squizlabs/php_codesniffer": "4.0.x-dev",
         "vimeo/psalm": "5.x-dev"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Nulldark\\ORM\\": "lib/ORM/"
