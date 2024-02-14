@@ -1,12 +1,12 @@
 <?php
 
-namespace Pluto\Tests\Units\UnitOfWork;
+namespace Pluto\test\Units\UnitOfWork;
 
 use Pluto\UnitOfWork\IdentityMap;
 use Pluto\UnitOfWork\IdentityMapInterface;
-use Pluto\Tests\Stubs\State;
-use Pluto\Tests\Stubs\User;
-use Pluto\Tests\TestCase;
+use Pluto\test\Stubs\State;
+use Pluto\test\Stubs\User;
+use Pluto\test\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(IdentityMap::class)]

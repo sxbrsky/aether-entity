@@ -1,6 +1,6 @@
 <?php
 
-namespace Pluto\Tests\Stubs;
+namespace Pluto\test\Stubs;
 
 class DummyClassExtended extends DummyClass
 {

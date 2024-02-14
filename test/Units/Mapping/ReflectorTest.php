@@ -1,13 +1,13 @@
 <?php
 
-namespace Pluto\Tests\Units\Mapping;
+namespace Pluto\test\Units\Mapping;
 
 use Pluto\Mapping\Annotations as ORM;
 use Pluto\Mapping\Reflector;
-use Pluto\Tests\Stubs\AnnotationDummyClass;
-use Pluto\Tests\Stubs\DummyClass;
-use Pluto\Tests\Stubs\DummyClassExtended;
-use Pluto\Tests\TestCase;
+use Pluto\test\Stubs\AnnotationDummyClass;
+use Pluto\test\Stubs\DummyClass;
+use Pluto\test\Stubs\DummyClassExtended;
+use Pluto\test\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(Reflector::class)]

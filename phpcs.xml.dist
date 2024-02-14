@@ -12,7 +12,7 @@
     <arg value="sp"/>
 
     <!-- Paths to check -->
-    <file>src</file>
+    <file>lib</file>
     <file>test</file>
 
     <!-- Include all rules from the Charon Coding Standard -->
