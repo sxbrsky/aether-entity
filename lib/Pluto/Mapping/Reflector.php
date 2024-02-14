@@ -35,8 +35,7 @@ final class Reflector
      * @return array
      * @psalm-return array<array-key, class-string>
      */
-    public function getParentClasses(string $classname): array
-    {
+    public function getParentClasses(string $classname): array {
         $parents = class_parents($classname);
 
         return $parents !== false
@@ -53,8 +52,7 @@ final class Reflector
      *
      * @template T of Annotation
      */
-    public function getClassAnnotations(ReflectionClass $class): array
-    {
+    public function getClassAnnotations(ReflectionClass $class): array {
         return $this->convertAnnotationsToInstance(
             $class->getAttributes()
         );
@@ -68,8 +66,7 @@ final class Reflector
      * @return array<string, Annotation>
      * @psalm-return array<class-string, Annotation>
      */
-    public function getMethodAnnotations(ReflectionMethod $method): array
-    {
+    public function getMethodAnnotations(ReflectionMethod $method): array {
         return $this->convertAnnotationsToInstance(
             $method->getAttributes()
         );
@@ -83,8 +80,7 @@ final class Reflector
      * @return array<string, Annotation>
      * @psalm-return array<class-string, Annotation>
      */
-    public function getPropertyAnnotations(ReflectionProperty $property): array
-    {
+    public function getPropertyAnnotations(ReflectionProperty $property): array {
         return $this->convertAnnotationsToInstance(
             $property->getAttributes()
         );
@@ -102,8 +98,7 @@ final class Reflector
      *
      * @template T of Annotation
      */
-    public function getPropertyAnnotation(ReflectionProperty $property, string $annotation)
-    {
+    public function getPropertyAnnotation(ReflectionProperty $property, string $annotation) {
         return $this->getPropertyAnnotations($property)[$annotation] ?? null;
     }
 
@@ -117,8 +112,7 @@ final class Reflector
      *
      * @template T of Annotation
      */
-    private function convertAnnotationsToInstance(array $attributes): array
-    {
+    private function convertAnnotationsToInstance(array $attributes): array {
         $instances = [];
 
         foreach ($attributes as $attribute) {

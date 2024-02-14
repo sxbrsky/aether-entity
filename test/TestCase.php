@@ -19,8 +19,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
      * @return T & MockInterface
      * @template T
      */
-    public function mock(string $class, mixed ...$arguments): MockInterface
-    {
+    public function mock(string $class, mixed ...$arguments): MockInterface {
         /** @var T & MockInterface */
         return \Mockery::mock($class, $arguments);
     }
@@ -35,8 +34,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
      *
      * @template T
      */
-    public function spy(string $class, mixed ...$arguments): MockInterface
-    {
+    public function spy(string $class, mixed ...$arguments): MockInterface {
         /** @var T & MockInterface */
         return Mockery::spy($class, ...$arguments);
     }

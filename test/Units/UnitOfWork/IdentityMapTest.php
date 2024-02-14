@@ -14,26 +14,22 @@ class IdentityMapTest extends TestCase
 {
     private IdentityMapInterface $identityMap;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         $this->identityMap = new IdentityMap();
     }
 
-    public function testSet(): void
-    {
+    public function testSet(): void {
         $this->identityMap->put(1, new User());
     }
 
-    public function testComputeIdHashWithPrimitiveValue(): void
-    {
+    public function testComputeIdHashWithPrimitiveValue(): void {
         self::assertEquals(
             '1',
             $this->identityMap->computeIdHash([1])
         );
     }
 
-    public function testComputeIdHashWithBackedEnum(): void
-    {
+    public function testComputeIdHashWithBackedEnum(): void {
         self::assertEquals(
             'foo',
             $this->identityMap->computeIdHash([State::FOO])

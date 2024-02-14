@@ -27,8 +27,7 @@ final class EntityPersister extends AbstractPersister
     /**
      * @inheritDoc
      */
-    public function load(array $criteria, $entity = null): ?object
-    {
+    public function load(array $criteria, $entity = null): ?object {
         $query = $this->getSelectQuery($criteria);
 
         $record = $query->get()->first();
@@ -50,8 +49,7 @@ final class EntityPersister extends AbstractPersister
     /**
      * @inheritDoc
      */
-    public function loadAll(array $criteria): array
-    {
+    public function loadAll(array $criteria): array {
         $hydrator = $this->getEntityHydrator();
         $query = $this->getSelectQuery($criteria);
 
@@ -65,8 +63,7 @@ final class EntityPersister extends AbstractPersister
         return $entities;
     }
 
-    private function getSelectQuery(array $criteria): QueryBuilderInterface
-    {
+    private function getSelectQuery(array $criteria): QueryBuilderInterface {
         $qb = $this->em->createQueryBuilder()
             ->select('*')
             ->from($this->class->table['name']);

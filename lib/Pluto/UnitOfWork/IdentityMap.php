@@ -32,13 +32,12 @@ class IdentityMap implements IdentityMapInterface
     /**
      * @inheritDoc
      */
-    public function put(mixed $identifier, object $entity): bool
-    {
+    public function put(mixed $identifier, object $entity): bool {
         if (!isset($this->identityMap[$entity::class])) {
             $this->identityMap[$entity::class] = new HashMap();
         }
 
-        $this->identityMap[$entity::class]->put($this->computeIdHash((array)$identifier), $entity);
+        $this->identityMap[$entity::class]->put($this->computeIdHash((array) $identifier), $entity);
 
         return true;
     }
@@ -46,9 +45,8 @@ class IdentityMap implements IdentityMapInterface
     /**
      * @inheritDoc
      */
-    public function get(mixed $identifier, string $classname): mixed
-    {
-        $idHash = $this->computeIdHash((array)$identifier);
+    public function get(mixed $identifier, string $classname): mixed {
+        $idHash = $this->computeIdHash((array) $identifier);
 
         if (!isset($this->identityMap[$classname])) {
             return false;
@@ -60,8 +58,7 @@ class IdentityMap implements IdentityMapInterface
     /**
      * @inheritDoc
      */
-    public function computeIdHash(array $identifier): string
-    {
+    public function computeIdHash(array $identifier): string {
         return implode(
             ' ',
             array_map(

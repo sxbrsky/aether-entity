@@ -30,8 +30,7 @@ class ObjectHydrator implements HydratorInterface
     /**
      * @inheritDoc
      */
-    public function hydrate(array $data, object $entity): object
-    {
+    public function hydrate(array $data, object $entity): object {
         foreach ($data as $field => $value) {
             if (isset($this->class->fieldMappings[$field])) {
                 if ($this->class->properties[$field] === null) {

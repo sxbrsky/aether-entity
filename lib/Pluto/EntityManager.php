@@ -45,8 +45,7 @@ final class EntityManager implements EntityManagerInterface
     /**
      * @inheritDoc
      */
-    public function find(string $classname, mixed $id): ?object
-    {
+    public function find(string $classname, mixed $id): ?object {
         if ($id === null) {
             return null;
         }
@@ -92,32 +91,28 @@ final class EntityManager implements EntityManagerInterface
         return $entity;
     }
 
-    public function getMedata(string $classname): Metadata
-    {
+    public function getMedata(string $classname): Metadata {
         return $this->metadataFactory->getMedataFor($classname);
     }
 
     /**
      * @inheritDoc
      */
-    public function getUnitOfWork(): UnitOfWorkInterface
-    {
+    public function getUnitOfWork(): UnitOfWorkInterface {
         return $this->unitOfWork;
     }
 
     /**
      * @inheritDoc
      */
-    public function getConnection(): ConnectionInterface
-    {
+    public function getConnection(): ConnectionInterface {
         return $this->connection;
     }
 
     /**
      * @inheritDoc
      */
-    public function getRepository(string $classname): EntityRepository
-    {
+    public function getRepository(string $classname): EntityRepository {
         $class = $this->getMedata($classname);
 
         $repository = $class->customRepositoryClassname === null
@@ -130,8 +125,7 @@ final class EntityManager implements EntityManagerInterface
     /**
      * @inheritDoc
      */
-    public function createQueryBuilder(): QueryBuilderInterface
-    {
+    public function createQueryBuilder(): QueryBuilderInterface {
         return $this->getConnection()->getQueryBuilder();
     }
 }

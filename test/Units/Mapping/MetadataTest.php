@@ -14,8 +14,7 @@ use function PHPUnit\Framework\assertNotEmpty;
 #[CoversClass(Metadata::class)]
 class MetadataTest extends TestCase
 {
-    public function testSetPrimaryTable(): void
-    {
+    public function testSetPrimaryTable(): void {
         $table = new ORM\Table('foo');
 
         $class = new Metadata(AnnotationDummyClass::class);
@@ -25,8 +24,7 @@ class MetadataTest extends TestCase
         self::assertNull($class->table['schema']);
     }
 
-    public function testSetFieldMapping(): void
-    {
+    public function testSetFieldMapping(): void {
         $column = new ORM\Column();
         $property = new \ReflectionProperty(AnnotationDummyClass::class, 'name');
 

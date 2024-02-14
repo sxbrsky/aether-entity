@@ -79,8 +79,7 @@ class Metadata
     /**
      * @param class-string $name
      */
-    public function __construct(string $name)
-    {
+    public function __construct(string $name) {
         $this->name = $name;
     }
 
@@ -90,8 +89,7 @@ class Metadata
      * @param ?ORM\Table $table
      * @return void
      */
-    public function setPrimaryTable(?ORM\Table $table = null): void
-    {
+    public function setPrimaryTable(?ORM\Table $table = null): void {
         if ($table === null) {
             return;
         }
@@ -109,8 +107,7 @@ class Metadata
      *
      * @return void
      */
-    public function setFieldMapping(\ReflectionProperty $property, ORM\Column $column = null, ORM\Id $id = null): void
-    {
+    public function setFieldMapping(\ReflectionProperty $property, ORM\Column $column = null, ORM\Id $id = null): void {
         if ($column === null) {
             return;
         }
@@ -120,11 +117,11 @@ class Metadata
         }
 
         $mapping = [
-          'fieldName' => $property->name,
-          'type' => $column->type,
-          'length' => $column->length,
-          'nullable' => $column->nullable,
-          'unique' => $column->unique
+            'fieldName' => $property->name,
+            'type' => $column->type,
+            'length' => $column->length,
+            'nullable' => $column->nullable,
+            'unique' => $column->unique
         ];
 
         if ($id !== null) {
@@ -147,8 +144,7 @@ class Metadata
      * @psalm-param class-string<EntityRepository>|null $classname
      * @return void
      */
-    public function setCustomRepository(?string $classname): void
-    {
+    public function setCustomRepository(?string $classname): void {
         $this->customRepositoryClassname = $classname;
     }
 
@@ -160,8 +156,7 @@ class Metadata
      *
      * @throws ReflectionException
      */
-    public function newInstance(): object
-    {
+    public function newInstance(): object {
         return (new ReflectionClass($this->name))->newInstanceWithoutConstructor();
     }
 }

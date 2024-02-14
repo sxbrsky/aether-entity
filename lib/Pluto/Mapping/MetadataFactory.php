@@ -28,8 +28,7 @@ class MetadataFactory
 
     private Reflector $reflector;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->reflector = new Reflector();
     }
 
@@ -45,8 +44,7 @@ class MetadataFactory
      *
      * @throws ReflectionException
      */
-    public function getMedataFor(string $classname): Metadata
-    {
+    public function getMedataFor(string $classname): Metadata {
         $classname = $this->normalizeClassname($classname);
 
         if (isset($this->metadataCache[$classname])) {
@@ -68,8 +66,7 @@ class MetadataFactory
      *
      * @throws ReflectionException
      */
-    private function doLoadMetadata(Metadata $class): void
-    {
+    private function doLoadMetadata(Metadata $class): void {
         $reflectionClass = new \ReflectionClass($class->name);
 
         $classAnnotations = $this->reflector->getClassAnnotations($reflectionClass);
@@ -106,8 +103,7 @@ class MetadataFactory
      * @param class-string $className
      * @return class-string
      */
-    private function normalizeClassname(string $className): string
-    {
+    private function normalizeClassname(string $className): string {
         return ltrim($className, '\\');
     }
 
@@ -121,8 +117,7 @@ class MetadataFactory
      *
      * @template T of object
      */
-    private function newMetadataInstance(string $classname): Metadata
-    {
+    private function newMetadataInstance(string $classname): Metadata {
         return new Metadata(
             $classname
         );

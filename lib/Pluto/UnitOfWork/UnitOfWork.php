@@ -38,8 +38,7 @@ final class UnitOfWork implements UnitOfWorkInterface
     /**
      * @inheritDoc
      */
-    public function tryGetById(mixed $id, string $classname): object|false
-    {
+    public function tryGetById(mixed $id, string $classname): object|false {
         $entity = $this->identityMap->get($id, $classname);
 
         return $entity !== false
@@ -50,16 +49,14 @@ final class UnitOfWork implements UnitOfWorkInterface
     /**
      * @inheritDoc
      */
-    public function putToIdentityMap(mixed $id, object $entity): bool
-    {
+    public function putToIdentityMap(mixed $id, object $entity): bool {
         return $this->identityMap->put($id, $entity);
     }
 
     /**
      * @inheritDoc
      */
-    public function getEntityPersister(string $classname): EntityPersister
-    {
+    public function getEntityPersister(string $classname): EntityPersister {
         if (isset($this->persisters[$classname])) {
             return $this->persisters[$classname];
         }

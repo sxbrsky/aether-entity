@@ -35,8 +35,7 @@ abstract class AbstractPersister implements PersisterInterface
     /**
      * @inheritDoc
      */
-    public function getEntityHydrator(): HydratorInterface
-    {
+    public function getEntityHydrator(): HydratorInterface {
         if ($this->entityHydrator === null) {
             $this->entityHydrator = new ObjectHydrator($this->class);
         }

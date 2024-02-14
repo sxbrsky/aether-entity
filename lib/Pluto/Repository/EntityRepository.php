@@ -42,8 +42,7 @@ class EntityRepository
      * @return object|null
      * @psalm-return T|null
      */
-    public function find(mixed $id)
-    {
+    public function find(mixed $id) {
         return $this->em->find($this->entityName, $id);
     }
 
@@ -53,8 +52,7 @@ class EntityRepository
      * @return object[]
      * @psalm-return list<T>
      */
-    public function findAll(): array
-    {
+    public function findAll(): array {
         return $this->findBy([]);
     }
 
@@ -65,8 +63,7 @@ class EntityRepository
      * @return object[]
      * @psalm-return list<T>
      */
-    public function findBy(array $criteria): array
-    {
+    public function findBy(array $criteria): array {
         return $this->em->getUnitOfWork()
             ->getEntityPersister($this->entityName)
             ->loadAll($criteria);
