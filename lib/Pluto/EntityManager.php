@@ -22,22 +22,22 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM;
+namespace Pluto;
 
 use Nulldark\DBAL\ConnectionInterface;
 use Nulldark\DBAL\Query\QueryBuilderInterface;
-use Nulldark\ORM\Mapping\Metadata;
-use Nulldark\ORM\Mapping\MetadataFactory;
-use Nulldark\ORM\Repository\EntityRepository;
-use Nulldark\ORM\UnitOfWork\UnitOfWork;
-use Nulldark\ORM\UnitOfWork\UnitOfWorkInterface;
+use Pluto\Mapping\Metadata;
+use Pluto\Mapping\MetadataFactory;
+use Pluto\Repository\EntityRepository;
+use Pluto\UnitOfWork\UnitOfWork;
+use Pluto\UnitOfWork\UnitOfWorkInterface;
 
 /**
  * @final
  *
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM
+ * @package Pluto
  * @since 0.1.0
  */
 final class EntityManager implements EntityManagerInterface

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\UnitOfWork;
+namespace Pluto\UnitOfWork;
 
 use BackedEnum;
 use Nulldark\Stdlib\Collections\Map\HashMap;
@@ -33,7 +33,7 @@ use Nulldark\Stdlib\Collections\Map\MapInterface;
  *
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\UnitOfWork
+ * @package Pluto\UnitOfWork
  * @since 0.1.0
  */
 class IdentityMap implements IdentityMapInterface

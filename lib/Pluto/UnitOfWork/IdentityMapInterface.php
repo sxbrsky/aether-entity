@@ -22,37 +22,51 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Persister;
+namespace Pluto\UnitOfWork;
 
-use Nulldark\ORM\EntityManagerInterface;
-use Nulldark\ORM\Hydrator\HydratorInterface;
-use Nulldark\ORM\Hydrator\ObjectHydrator;
-use Nulldark\ORM\Mapping\Metadata;
+use BackedEnum;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Persister
+ * @package Pluto\UnitOfWork
  * @since 0.1.0
  */
-abstract class AbstractPersister implements PersisterInterface
+interface IdentityMapInterface
 {
-    protected HydratorInterface|null $entityHydrator = null;
-
-    public function __construct(
-        protected readonly EntityManagerInterface $em,
-        protected readonly Metadata $class
-    ) {
-    }
     /**
-     * @inheritDoc
+     * Puts a entity into identity map.
+     *
+     * @param mixed   $identifier
+     * @param object  $entity
+     * @psalm-param T $entity
+     *
+     * @return bool
+     *
+     * @template T of object
      */
-    public function getEntityHydrator(): HydratorInterface
-    {
-        if ($this->entityHydrator === null) {
-            $this->entityHydrator = new ObjectHydrator($this->class);
-        }
+    public function put(mixed $identifier, object $entity): bool;
 
-        return $this->entityHydrator;
-    }
+    /**
+     * Gets entity from identity map.
+     *
+     * @param mixed                 $identifier
+     * @param string                $classname
+     * @psalm-param class-string<T> $classname
+     *
+     * @return T|false
+     * @psalm-return T|false
+     *
+     * @template T
+     */
+    public function get(mixed $identifier, string $classname): mixed;
+
+    /**
+     * Compute id hash for given identifiers.
+     *
+     * @param mixed[] $identifier
+     *
+     * @return string
+     */
+    public function computeIdHash(array $identifier): string;
 }

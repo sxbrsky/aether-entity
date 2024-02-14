@@ -1,6 +1,6 @@
 <?php
 
-namespace Nulldark\Tests\Stubs;
+namespace Pluto\Tests\Stubs;
 
 enum State: string
 {

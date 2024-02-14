@@ -22,16 +22,16 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Persister;
+namespace Pluto\Persister;
 
 use Nulldark\DBAL\Query\QueryBuilderInterface;
-use Nulldark\ORM\EntityManagerInterface;
-use Nulldark\ORM\Mapping\Metadata;
+use Pluto\EntityManagerInterface;
+use Pluto\Mapping\Metadata;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Persister
+ * @package Pluto\Persister
  * @since 0.1.0
  */
 final class EntityPersister extends AbstractPersister

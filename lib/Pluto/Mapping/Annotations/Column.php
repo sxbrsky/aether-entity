@@ -22,43 +22,25 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Persister;
+namespace Pluto\Mapping\Annotations;
 
-use Nulldark\ORM\Hydrator\HydratorInterface;
+use Attribute;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Persister
+ * @package Pluto\Mapping\Annotations
  * @since 0.1.0
  */
-interface PersisterInterface
+#[Attribute(Attribute::TARGET_PROPERTY)]
+final class Column implements Annotation
 {
-    /**
-     * Gets an entity by a list of field criteria.
-     *
-     * @param array<string, mixed>  $criteria
-     * @param object|null           $entity
-     * @psalm-param object|null          $entity
-     *
-     * @return object|null
-     */
-    public function load(array $criteria, object $entity = null): ?object;
-
-    /**
-     * Gets a list of entities by a list of field criteria.
-     *
-     * @param array<string, mixed> $criteria
-     *
-     * @return object[]
-     * @psalm-return list<object>
-     */
-    public function loadAll(array $criteria): array;
-
-    /**
-     * Returns a hydrator instance.
-     *
-     * @return HydratorInterface
-     */
-    public function getEntityHydrator(): HydratorInterface;
+    public function __construct(
+        public readonly ?string $name = null,
+        public readonly ?string $type = null,
+        public readonly ?int $length = null,
+        public readonly ?bool $unique = false,
+        public readonly ?bool $nullable = false
+    ) {
+    }
 }

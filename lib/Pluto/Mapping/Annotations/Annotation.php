@@ -22,54 +22,14 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\UnitOfWork;
-
-use Nulldark\ORM\Persister\PersisterInterface;
+namespace Pluto\Mapping\Annotations;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\UnitOfWork
+ * @package Pluto\Mapping\Annotations
  * @since 0.1.0
  */
-interface UnitOfWorkInterface
+interface Annotation
 {
-    /**
-     * Tries get an entity from identity map.
-     *
-     * @param mixed                 $id
-     * @param string                $classname
-     * @psalm-param class-string<T> $classname
-     *
-     * @return object|false
-     * @psalm-return T|false
-     *
-     * @template T of object
-     */
-    public function tryGetById(mixed $id, string $classname): object|false;
-
-    /**
-     * Puts an object into identity map.
-     *
-     * @param mixed $id
-     * @param object $entity
-     * @psalm-param T $entity
-     *
-     * @return bool
-     *
-     * @template T of object
-     */
-    public function putToIdentityMap(mixed $id, object $entity): bool;
-
-    /**
-     * Gets a persister instance for given entity.
-     *
-     * @param string                $classname
-     * @psalm-param class-string<T> $classname
-     *
-     * @return PersisterInterface
-     *
-     * @template T of object
-     */
-    public function getEntityPersister(string $classname): PersisterInterface;
 }

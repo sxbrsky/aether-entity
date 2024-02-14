@@ -1,12 +1,12 @@
 <?php
 
-namespace Nulldark\Tests\Units\Mapping;
+namespace Pluto\Tests\Units\Mapping;
 
-use Nulldark\ORM\Mapping\Annotations as ORM;
-use Nulldark\ORM\Mapping\Metadata;
-use Nulldark\Tests\Stubs\AnnotationDummyClass;
-use Nulldark\Tests\Stubs\DummyClass;
-use Nulldark\Tests\TestCase;
+use Pluto\Mapping\Annotations as ORM;
+use Pluto\Mapping\Metadata;
+use Pluto\Tests\Stubs\AnnotationDummyClass;
+use Pluto\Tests\Stubs\DummyClass;
+use Pluto\Tests\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 use function PHPUnit\Framework\assertNotEmpty;

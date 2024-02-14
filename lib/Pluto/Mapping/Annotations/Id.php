@@ -22,38 +22,17 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Hydrator;
+namespace Pluto\Mapping\Annotations;
 
-use Nulldark\ORM\Mapping\Metadata;
+use Attribute;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Hydrator
+ * @package Pluto\Mapping\Annotations
  * @since 0.1.0
  */
-class ObjectHydrator implements HydratorInterface
+#[Attribute(Attribute::TARGET_PROPERTY)]
+final class Id implements Annotation
 {
-    public function __construct(
-        private readonly Metadata $class
-    ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function hydrate(array $data, object $entity): object
-    {
-        foreach ($data as $field => $value) {
-            if (isset($this->class->fieldMappings[$field])) {
-                if ($this->class->properties[$field] === null) {
-                    continue;
-                }
-
-                $this->class->properties[$field]->setValue($entity, $value);
-            }
-        }
-
-        return $entity;
-    }
 }

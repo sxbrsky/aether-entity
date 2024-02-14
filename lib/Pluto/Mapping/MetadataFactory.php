@@ -22,15 +22,15 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping;
+namespace Pluto\Mapping;
 
-use Nulldark\ORM\Mapping\Annotations\Annotation;
+use Pluto\Mapping\Annotations\Annotation;
 use ReflectionException;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping
+ * @package Pluto\Mapping
  * @since 0.1.0
  */
 class MetadataFactory

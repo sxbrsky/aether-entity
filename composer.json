@@ -1,80 +1,46 @@
 {
-    "name": "nulldark/orm",
+    "name": "nuldark/pluto",
     "description": "Object Relational Mapper",
     "license": "MIT",
     "type": "library",
-    "authors": [
-        {
-            "name": "Dominik Szamburski",
-            "email": "dominikszamburski99@gmail.com"
-        }
-    ],
     "require": {
         "php": "~8.2.0 || ~8.3.0",
-        "nulldark/dbal": "dev-master",
-        "nulldark/stdlib": "dev-master"
+        "charonlab/charon-db": "^1.0"
     },
     "require-dev": {
+        "charonlab/coding-standard": "1.2.x-dev",
         "jetbrains/phpstorm-stubs": "dev-master",
-        "madewithlove/license-checker": "dev-main",
         "mockery/mockery": "2.0.x-dev",
-        "phpstan/phpstan": "1.11.x-dev",
-        "phpstan/phpstan-mockery": "1.1.x-dev",
-        "phpstan/phpstan-phpunit": "1.4.x-dev",
-        "phpstan/phpstan-strict-rules": "1.5.x-dev",
+        "nulldark/plugin-mockery": "dev-master",
         "phpunit/phpunit": "^11.0@dev",
         "psalm/plugin-phpunit": "dev-master",
         "roave/security-advisories": "dev-latest",
-        "squizlabs/php_codesniffer": "4.0.x-dev",
-        "vimeo/psalm": "5.x-dev"
+        "vimeo/psalm": "6.x-dev"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Nulldark\\ORM\\": "lib/ORM/"
+            "Pluto\\": "lib/Pluto/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nulldark\\Tests\\": "tests/"
+            "Pluto\\Tests\\": "tests/"
         }
     },
     "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
         "platform": {
-            "php": "8.2"
+            "php": "8.2.15"
         },
         "sort-packages": true
     },
-    "extra": {
-        "captainhook": {
-            "force-install": true
-        },
-        "ramsey/conventional-commits": {
-            "configFile": "conventional-commits.json"
-        }
-    },
     "scripts": {
-        "dev:analyze": [
-            "@dev:analyze:phpstan",
-            "@dev:analyze:psalm"
-        ],
-        "dev:analyze:phpstan": "vendor/bin/phpstan analyze --ansi --memory-limit=1G",
-        "dev:analyze:psalm": "vendor/bin/psalm --show-info=false --stats --output-format=github -- --shepherd",
-        "dev:ci": [
-            "@dev:analyze",
-            "@dev:lint",
-            "@dev:test"
-        ],
-        "dev:coverage:html": "vendor/bin/phpunit --coverage-html .build/coverage/html/",
-        "dev:lint": [
-            "@dev:lint:fix",
-            "@dev:lint:style"
-        ],
-        "dev:lint:fix": "vendor/bin/phpcbf",
-        "dev:lint:style": "vendor/bin/phpcs -p --colors",
-        "dev:test": [
-            "@dev:test:unit"
-        ],
-        "dev:test:unit": "vendor/bin/phpunit"
+        "lint-check": "phpcs",
+        "lint-fix": "phpcbf",
+        "static-analysis": "psalm --shepherd --stats",
+        "test": "phpunit --colors=always"
     }
 }

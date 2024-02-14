@@ -22,51 +22,27 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\UnitOfWork;
-
-use BackedEnum;
+namespace Pluto\Hydrator;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\UnitOfWork
+ * @package Pluto\Hydrator
  * @since 0.1.0
  */
-interface IdentityMapInterface
+interface HydratorInterface
 {
     /**
-     * Puts a entity into identity map.
+     * Hydrate $object with the provided $data.
      *
-     * @param mixed   $identifier
-     * @param object  $entity
-     * @psalm-param T $entity
+     * @param array<array-key, mixed> $data
+     * @param object                  $entity
+     * @psalm-param T                 $entity
      *
-     * @return bool
+     * @return object
+     * @psalm-return T
      *
      * @template T of object
      */
-    public function put(mixed $identifier, object $entity): bool;
-
-    /**
-     * Gets entity from identity map.
-     *
-     * @param mixed                 $identifier
-     * @param string                $classname
-     * @psalm-param class-string<T> $classname
-     *
-     * @return T|false
-     * @psalm-return T|false
-     *
-     * @template T
-     */
-    public function get(mixed $identifier, string $classname): mixed;
-
-    /**
-     * Compute id hash for given identifiers.
-     *
-     * @param mixed[] $identifier
-     *
-     * @return string
-     */
-    public function computeIdHash(array $identifier): string;
+    public function hydrate(array $data, object $entity): object;
 }

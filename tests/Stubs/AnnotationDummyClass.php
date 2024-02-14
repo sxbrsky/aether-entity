@@ -1,8 +1,8 @@
 <?php
 
-namespace Nulldark\Tests\Stubs;
+namespace Pluto\Tests\Stubs;
 
-use Nulldark\ORM\Mapping\Annotations;
+use Pluto\Mapping\Annotations;
 
 #[Annotations\Entity]
 class AnnotationDummyClass

@@ -22,22 +22,65 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Pluto\Repository;
 
-use Attribute;
+use Pluto\EntityManagerInterface;
+use Pluto\Mapping\Metadata;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Pluto\Persister
  * @since 0.1.0
+ *
+ * @template T of object
  */
-#[Attribute(Attribute::TARGET_CLASS)]
-final class Table implements Annotation
+class EntityRepository
 {
+    protected string $entityName;
+
     public function __construct(
-        public readonly string $name,
-        public readonly ?string $schema = null
+        protected EntityManagerInterface $em,
+        protected Metadata $class
     ) {
+        $this->entityName = $class->name;
+    }
+
+    /**
+     * Finds entity by its identifier.
+     *
+     * @param mixed $id
+     *
+     * @return object|null
+     * @psalm-return T|null
+     */
+    public function find(mixed $id)
+    {
+        return $this->em->find($this->entityName, $id);
+    }
+
+    /**
+     * Finds all entities in the repository.
+     *
+     * @return object[]
+     * @psalm-return list<T>
+     */
+    public function findAll(): array
+    {
+        return $this->findBy([]);
+    }
+
+    /**
+     * @param array<string, mixed> $criteria
+     * @psalm-param array<string, mixed> $criteria
+     *
+     * @return object[]
+     * @psalm-return list<T>
+     */
+    public function findBy(array $criteria): array
+    {
+        return $this->em->getUnitOfWork()
+            ->getEntityPersister($this->entityName)
+            ->loadAll($criteria);
     }
 }

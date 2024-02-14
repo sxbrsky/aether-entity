@@ -22,27 +22,54 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Hydrator;
+namespace Pluto\UnitOfWork;
+
+use Pluto\Persister\PersisterInterface;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Hydrator
+ * @package Pluto\UnitOfWork
  * @since 0.1.0
  */
-interface HydratorInterface
+interface UnitOfWorkInterface
 {
     /**
-     * Hydrate $object with the provided $data.
+     * Tries get an entity from identity map.
      *
-     * @param array<array-key, mixed> $data
-     * @param object                  $entity
-     * @psalm-param T                 $entity
+     * @param mixed                 $id
+     * @param string                $classname
+     * @psalm-param class-string<T> $classname
      *
-     * @return object
-     * @psalm-return T
+     * @return object|false
+     * @psalm-return T|false
      *
      * @template T of object
      */
-    public function hydrate(array $data, object $entity): object;
+    public function tryGetById(mixed $id, string $classname): object|false;
+
+    /**
+     * Puts an object into identity map.
+     *
+     * @param mixed $id
+     * @param object $entity
+     * @psalm-param T $entity
+     *
+     * @return bool
+     *
+     * @template T of object
+     */
+    public function putToIdentityMap(mixed $id, object $entity): bool;
+
+    /**
+     * Gets a persister instance for given entity.
+     *
+     * @param string                $classname
+     * @psalm-param class-string<T> $classname
+     *
+     * @return PersisterInterface
+     *
+     * @template T of object
+     */
+    public function getEntityPersister(string $classname): PersisterInterface;
 }

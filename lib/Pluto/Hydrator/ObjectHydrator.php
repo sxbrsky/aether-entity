@@ -22,65 +22,38 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Repository;
+namespace Pluto\Hydrator;
 
-use Nulldark\ORM\EntityManagerInterface;
-use Nulldark\ORM\Mapping\Metadata;
+use Pluto\Mapping\Metadata;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Persister
+ * @package Pluto\Hydrator
  * @since 0.1.0
- *
- * @template T of object
  */
-class EntityRepository
+class ObjectHydrator implements HydratorInterface
 {
-    protected string $entityName;
-
     public function __construct(
-        protected EntityManagerInterface $em,
-        protected Metadata $class
+        private readonly Metadata $class
     ) {
-        $this->entityName = $class->name;
     }
 
     /**
-     * Finds entity by its identifier.
-     *
-     * @param mixed $id
-     *
-     * @return object|null
-     * @psalm-return T|null
+     * @inheritDoc
      */
-    public function find(mixed $id)
+    public function hydrate(array $data, object $entity): object
     {
-        return $this->em->find($this->entityName, $id);
-    }
+        foreach ($data as $field => $value) {
+            if (isset($this->class->fieldMappings[$field])) {
+                if ($this->class->properties[$field] === null) {
+                    continue;
+                }
 
-    /**
-     * Finds all entities in the repository.
-     *
-     * @return object[]
-     * @psalm-return list<T>
-     */
-    public function findAll(): array
-    {
-        return $this->findBy([]);
-    }
+                $this->class->properties[$field]->setValue($entity, $value);
+            }
+        }
 
-    /**
-     * @param array<string, mixed> $criteria
-     * @psalm-param array<string, mixed> $criteria
-     *
-     * @return object[]
-     * @psalm-return list<T>
-     */
-    public function findBy(array $criteria): array
-    {
-        return $this->em->getUnitOfWork()
-            ->getEntityPersister($this->entityName)
-            ->loadAll($criteria);
+        return $entity;
     }
 }

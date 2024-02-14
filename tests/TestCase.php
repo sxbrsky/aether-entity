@@ -1,6 +1,6 @@
 <?php
 
-namespace Nulldark\Tests;
+namespace Pluto\Tests;
 
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;

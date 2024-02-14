@@ -22,63 +22,37 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\UnitOfWork;
+namespace Pluto\Persister;
 
-use Nulldark\ORM\EntityManagerInterface;
-use Nulldark\ORM\Persister\EntityPersister;
+use Pluto\EntityManagerInterface;
+use Pluto\Hydrator\HydratorInterface;
+use Pluto\Hydrator\ObjectHydrator;
+use Pluto\Mapping\Metadata;
 
 /**
- * @internal
- *
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\UnitOfWork
+ * @package Pluto\Persister
  * @since 0.1.0
  */
-final class UnitOfWork implements UnitOfWorkInterface
+abstract class AbstractPersister implements PersisterInterface
 {
-    private IdentityMapInterface $identityMap;
+    protected HydratorInterface|null $entityHydrator = null;
 
-    /** @var array<string, EntityPersister> $persisters */
-    private array $persisters = [];
     public function __construct(
-        private readonly EntityManagerInterface $em
+        protected readonly EntityManagerInterface $em,
+        protected readonly Metadata $class
     ) {
-        $this->identityMap = new IdentityMap();
     }
-
     /**
      * @inheritDoc
      */
-    public function tryGetById(mixed $id, string $classname): object|false
+    public function getEntityHydrator(): HydratorInterface
     {
-        $entity = $this->identityMap->get($id, $classname);
-
-        return $entity !== false
-            ? $entity
-            : false;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function putToIdentityMap(mixed $id, object $entity): bool
-    {
-        return $this->identityMap->put($id, $entity);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getEntityPersister(string $classname): EntityPersister
-    {
-        if (isset($this->persisters[$classname])) {
-            return $this->persisters[$classname];
+        if ($this->entityHydrator === null) {
+            $this->entityHydrator = new ObjectHydrator($this->class);
         }
 
-        return $this->persisters[$classname] = new EntityPersister(
-            $this->em,
-            $this->em->getMedata($classname)
-        );
+        return $this->entityHydrator;
     }
 }

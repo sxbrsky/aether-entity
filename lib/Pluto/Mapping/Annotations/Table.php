@@ -22,25 +22,22 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping\Annotations;
+namespace Pluto\Mapping\Annotations;
 
 use Attribute;
-use Nulldark\ORM\Repository\EntityRepository;
 
 /**
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping\Annotations
+ * @package Pluto\Mapping\Annotations
  * @since 0.1.0
- *
- * @template T of object
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+final class Table implements Annotation
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
     public function __construct(
-        public readonly string|null $repositoryClass = null
+        public readonly string $name,
+        public readonly ?string $schema = null
     ) {
     }
 }

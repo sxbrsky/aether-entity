@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-namespace Nulldark\ORM\Mapping;
+namespace Pluto\Mapping;
 
-use Nulldark\ORM\Mapping\Annotations as ORM;
-use Nulldark\ORM\Repository\EntityRepository;
+use Pluto\Mapping\Annotations as ORM;
+use Pluto\Repository\EntityRepository;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionProperty;
@@ -49,7 +49,7 @@ use ReflectionProperty;
  *
  * @author Dominik Szamburski
  * @license MIT
- * @package Nulldark\ORM\Mapping
+ * @package Pluto\Mapping
  * @since 0.1.0
  */
 class Metadata
