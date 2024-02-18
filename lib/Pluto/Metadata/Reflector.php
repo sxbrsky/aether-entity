@@ -67,8 +67,10 @@ final class Reflector
      * @param \ReflectionProperty $property
      *  The property reflection instance.
      *
-     * @return array<class-string<\Pluto\Attributes\MappingAttribute>, \Pluto\Attributes\MappingAttribute>
+     * @return array<class-string<T>, T>
      *  Returns the property attributes.
+     *
+     * @template T of \Pluto\Attributes\MappingAttribute
      */
     public function getPropertyAttributes(\ReflectionProperty $property): array {
         return $this->convertAttributesToInstance(
@@ -84,7 +86,7 @@ final class Reflector
      * @param class-string<T> $attribute
      *  The class annotation
      *
-     * @return \Pluto\Attributes\MappingAttribute|null
+     * @return T|null
      *  Return the attribute instance, otherwise NULL.
      *
      * @template T of \Pluto\Attributes\MappingAttribute

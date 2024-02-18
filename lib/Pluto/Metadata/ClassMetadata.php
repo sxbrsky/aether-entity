@@ -9,14 +9,9 @@
  * of the MIT license. See the LICENSE.md file for details.
  */
 
+namespace Pluto\Metadata;
 
-namespace Pluto\Mapping;
-
-use Pluto\Mapping\Annotations as ORM;
-use Pluto\Repository\EntityRepository;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionProperty;
+use Pluto\EntityRepository;
 
 /**
  * @psalm-type FieldMapping = array{
@@ -30,66 +25,51 @@ use ReflectionProperty;
  *
  *  @psalm-type TableMapping = array{
  *     name: string,
- *     schema: string|null
+ *     schema: string|null,
  *  }
  *
  * @template T of object
- *
- * @author Dominik Szamburski
- * @license MIT
- * @package Pluto\Mapping
- * @since 0.1.0
  */
-class Metadata
+class ClassMetadata
 {
-    /**
-     * @psalm-var class-string
-     */
-    public string $name;
-
-    /**
-     * @psalm-var ?class-string<EntityRepository>
-     */
+    /** @var null|class-string<EntityRepository> $customRepositoryClassname*/
     public string|null $customRepositoryClassname = null;
 
     /**
      * The primary table definition.
      *
-     * @var array
-     * @psalm-var TableMapping
+     * @var null|TableMapping $table
      */
-    public array $table;
+    public ?array $table = null;
 
-    /**
-     * @var ReflectionClass<T>|null $reflection
-     */
-    public ?ReflectionClass $reflection;
+    /** @var null|\ReflectionClass<T> $reflection */
+    public ?\ReflectionClass $reflection;
 
-    /**
-     * @var array<string, ReflectionProperty|null> $properties
-     */
+    /** @var array<string, null|\ReflectionProperty> $properties */
     public array $properties = [];
 
-    /** @var list<string> $identifier */
+    /** @var string[]|int[] $identifier */
     public array $identifier = [];
 
     /** @var array<string, FieldMapping> $fieldMappings */
     public array $fieldMappings = [];
 
-    /**
-     * @param class-string $name
-     */
-    public function __construct(string $name) {
-        $this->name = $name;
+    /** @param class-string<T> $name */
+    public function __construct(
+        /** @param class-string<T> $name */
+        public string $name
+    ) {
     }
 
     /**
-     * Sets primary table definition based on given $table Annotation.
+     * Sets primary table definition based on given $table attribute.
      *
-     * @param ?ORM\Table $table
+     * @param null|\Pluto\Attributes\Table $table
+     *  The table attribute.
+     *
      * @return void
      */
-    public function setPrimaryTable(?ORM\Table $table = null): void {
+    public function setPrimaryTable(?\Pluto\Attributes\Table $table = null): void {
         if ($table === null) {
             return;
         }
@@ -101,13 +81,20 @@ class Metadata
     /**
      * Sets field definition based on given arguments.
      *
-     * @param ReflectionProperty $property
-     * @param ?ORM\Column        $column
-     * @param ?ORM\Id            $id
+     * @param \ReflectionProperty $property
+     *  The reflection property instance.
+     * @param null|\Pluto\Attributes\Column $column
+     *  The column attribute.
+     * @param null|\Pluto\Attributes\Id $id
+     *  The id attribute.
      *
      * @return void
      */
-    public function setFieldMapping(\ReflectionProperty $property, ORM\Column $column = null, ORM\Id $id = null): void {
+    public function setFieldMapping(
+        \ReflectionProperty $property,
+        \Pluto\Attributes\Column $column = null,
+        \Pluto\Attributes\Id $id = null
+    ): void {
         if ($column === null) {
             return;
         }
@@ -131,7 +118,7 @@ class Metadata
         $this->fieldMappings[$property->name] = $mapping;
 
         if (isset($mapping['id'])) {
-            if (! in_array($mapping['fieldName'], $this->identifier, true)) {
+            if (!\in_array($mapping['fieldName'], $this->identifier, true)) {
                 $this->identifier[] = $mapping['fieldName'];
             }
         }
@@ -140,8 +127,9 @@ class Metadata
     /**
      * Registers custom repository class for entity.
      *
-     * @param string|null $classname
-     * @psalm-param class-string<EntityRepository>|null $classname
+     * @param null|class-string<EntityRepository> $classname
+     *  The class name of custom entity repository.
+     *
      * @return void
      */
     public function setCustomRepository(?string $classname): void {
@@ -151,12 +139,12 @@ class Metadata
     /**
      * Initialize new class instance.
      *
-     * @return object
-     * @psalm-return object
+     * @return T
+     *  Returns a new entity instance.
      *
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public function newInstance(): object {
-        return (new ReflectionClass($this->name))->newInstanceWithoutConstructor();
+        return (new \ReflectionClass($this->name))->newInstanceWithoutConstructor();
     }
 }
