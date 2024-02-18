@@ -9,23 +9,16 @@
  * of the MIT license. See the LICENSE.md file for details.
  */
 
-
-namespace Pluto\Mapping\Annotations;
+namespace Pluto\Attributes;
 
 use Attribute;
 
-/**
- * @author Dominik Szamburski
- * @license MIT
- * @package Pluto\Mapping\Annotations
- * @since 0.1.0
- */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class Table implements Annotation
+final readonly class Table implements MappingAttribute
 {
     public function __construct(
-        public readonly string $name,
-        public readonly ?string $schema = null
+        public string  $name,
+        public ?string $schema = null
     ) {
     }
 }

@@ -9,18 +9,8 @@
  * of the MIT license. See the LICENSE.md file for details.
  */
 
+namespace Pluto\Attributes;
 
-namespace Pluto\Mapping\Annotations;
-
-use Attribute;
-
-/**
- * @author Dominik Szamburski
- * @license MIT
- * @package Pluto\Mapping\Annotations
- * @since 0.1.0
- */
-#[Attribute(Attribute::TARGET_PROPERTY)]
-final class Id implements Annotation
+interface MappingAttribute
 {
 }

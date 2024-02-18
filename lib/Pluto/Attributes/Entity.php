@@ -9,26 +9,20 @@
  * of the MIT license. See the LICENSE.md file for details.
  */
 
-
-namespace Pluto\Mapping\Annotations;
+namespace Pluto\Attributes;
 
 use Attribute;
-use Pluto\Repository\EntityRepository;
+use Pluto\EntityRepository;
 
 /**
- * @author Dominik Szamburski
- * @license MIT
- * @package Pluto\Mapping\Annotations
- * @since 0.1.0
- *
  * @template T of object
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+final readonly class Entity implements MappingAttribute
 {
-    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
+    /** @param class-string<EntityRepository<T>>|null $repositoryClass */
     public function __construct(
-        public readonly string|null $repositoryClass = null
+        public string|null $repositoryClass = null
     ) {
     }
 }
