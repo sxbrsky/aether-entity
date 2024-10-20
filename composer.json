@@ -1,46 +1,27 @@
 {
-    "name": "nuldark/pluto",
-    "description": "Object Relational Mapper",
-    "license": "MIT",
-    "type": "library",
-    "require": {
-        "php": "~8.2.0 || ~8.3.0",
-        "charonlab/charon-db": "^1.2.x-dev"
-    },
-    "require-dev": {
-        "charonlab/coding-standard": "1.2.x-dev",
-        "jetbrains/phpstorm-stubs": "dev-master",
-        "mockery/mockery": "2.0.x-dev",
-        "nulldark/plugin-mockery": "dev-master",
-        "phpunit/phpunit": "^11.0@dev",
-        "psalm/plugin-phpunit": "dev-master",
-        "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "6.x-dev"
-    },
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "Pluto\\": "lib/Pluto/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pluto\\Tests\\": "tests/"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        },
-        "platform": {
-            "php": "8.2.15"
-        },
-        "sort-packages": true
-    },
-    "scripts": {
-        "lint-check": "phpcs",
-        "lint-fix": "phpcbf",
-        "static-analysis": "psalm --shepherd --stats",
-        "test": "phpunit --colors=always"
+  "name": "aether/entity",
+  "description": "The Aether entity package.",
+  "license": "MIT",
+  "type": "library",
+  "support": {
+    "issues": "https://github.com/sxbrsky/aether/issues",
+    "source": "https://github.com/sxbrsky/aether"
+  },
+  "require": {
+    "php": "^8.2"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Aether\\Entity\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Aether\\Tests\\Entity\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
 }
